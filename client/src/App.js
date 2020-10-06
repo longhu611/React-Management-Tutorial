@@ -1,10 +1,8 @@
-import React from 'react';
+import React from 'react'
 import Customer from './components/Customer'
 
 function App() {
-  return (
-    <Customer />
-  );
+	return <Customer />
 }
 
-export default App;
+export default App
