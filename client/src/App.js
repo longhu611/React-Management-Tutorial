@@ -57,7 +57,15 @@ class App extends React.Component {
 	}
 
 	render() {
-		const cellList = ['번호', '이미지', '이름', '생년월일', '성별', '직업']
+		const cellList = [
+			'번호',
+			'이미지',
+			'이름',
+			'생년월일',
+			'성별',
+			'직업',
+			'설정',
+		]
 		// const { classes } = this.props
 		const { customers, completed } = this.state
 		return (
@@ -74,7 +82,11 @@ class App extends React.Component {
 						<TableBody>
 							{customers ? (
 								customers.map((c, index) => (
-									<Customer key={index} customer={c} />
+									<Customer
+										key={index}
+										customer={c}
+										stateRefresh={this.stateRefresh}
+									/>
 								))
 							) : (
 								<TableRow>
