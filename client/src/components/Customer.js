@@ -11,7 +11,12 @@ class Customer extends React.Component {
 			<TableRow>
 				<TableCell>{customer.id}</TableCell>
 				<TableCell>
-					<img src={customer.image} alt="profile" />
+					<img
+						src={customer.image}
+						alt="profile"
+						width={64}
+						height={64}
+					/>
 				</TableCell>
 				<TableCell>{customer.name}</TableCell>
 				<TableCell>{customer.birthday}</TableCell>
