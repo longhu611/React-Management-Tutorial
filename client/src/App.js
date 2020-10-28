@@ -1,5 +1,6 @@
 import React from 'react'
 import Customer from './components/Customer'
+import CustomerAdd from './components/CustomerAdd'
 import { withStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableRow from '@material-ui/core/TableRow'
@@ -12,16 +13,29 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 const styles = (theme) => ({})
 
 class App extends React.Component {
-	state = {
-		customers: '',
-		completed: 0,
+	constructor(props) {
+		super(props)
+		this.state = {
+			customers: '',
+			completed: 0,
+		}
+	}
+
+	stateRefresh = () => {
+		this.setState({
+			customers: '',
+			completed: 0,
+		})
+		this.callApi()
+			.then((res) => this.setState({ customers: res }))
+			.catch((err) => console.log(err))
 	}
 
 	componentDidMount() {
 		this.timer = setInterval(this.progress, 20)
 		this.callApi()
 			.then((res) => this.setState({ customers: res }))
-			.catch((err) => console.log)
+			.catch((err) => console.log(err))
 	}
 
 	callApi = async () => {
@@ -47,33 +61,36 @@ class App extends React.Component {
 		// const { classes } = this.props
 		const { customers, completed } = this.state
 		return (
-			<Paper>
-				<Table>
-					<TableHead>
-						<TableRow>
-							{cellList.map((c, index) => (
-								<TableCell key={index}>{c}</TableCell>
-							))}
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{customers ? (
-							customers.map((c, index) => (
-								<Customer key={index} customer={c} />
-							))
-						) : (
+			<div>
+				<Paper>
+					<Table>
+						<TableHead>
 							<TableRow>
-								<TableCell colSpan="6" align="center">
-									<CircularProgress
-										variant="determinate"
-										value={completed}
-									/>
-								</TableCell>
+								{cellList.map((c, index) => (
+									<TableCell key={index}>{c}</TableCell>
+								))}
 							</TableRow>
-						)}
-					</TableBody>
-				</Table>
-			</Paper>
+						</TableHead>
+						<TableBody>
+							{customers ? (
+								customers.map((c, index) => (
+									<Customer key={index} customer={c} />
+								))
+							) : (
+								<TableRow>
+									<TableCell colSpan="6" align="center">
+										<CircularProgress
+											variant="determinate"
+											value={completed}
+										/>
+									</TableCell>
+								</TableRow>
+							)}
+						</TableBody>
+					</Table>
+				</Paper>
+				<CustomerAdd stateRefresh={this.stateRefresh} />
+			</div>
 		)
 	}
 }
