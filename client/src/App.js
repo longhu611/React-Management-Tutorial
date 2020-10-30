@@ -163,7 +163,7 @@ class App extends React.Component {
 							variant="h6"
 							noWrap
 						>
-							Material-UI
+							고객 관리 시스템
 						</Typography>
 						<div className={classes.search}>
 							<div className={classes.searchIcon}>
